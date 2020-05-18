@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>make-roll</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ng-container *ngFor="let step of roll.Steps;let i=index;">
+    <p>{{step.Value}}-{{step.Result}} <ion-button (click)="roll.removeStep(i)"><ion-icon name="remove-outline" slot="icon-only"></ion-icon></ion-button></p>
+  </ng-container>
+
+  <p *ngIf="roll.isValid">
+    Risultato: {{roll.Result}}
+  </p>
+
+  <ion-button (click)="InsertStep()">Inserisci</ion-button>
+
+  <ion-button (click)="roll.reRoll()">Reroll</ion-button>
+
+  <ion-button (click)="roll.clean()">Ricomincia</ion-button>
+</ion-content>

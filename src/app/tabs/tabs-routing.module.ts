@@ -8,27 +8,41 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'tab1',
-        loadChildren: () => import('../tab1/tab1.module').then(m => m.Tab1PageModule)
+        path: 'make-roll',
+        children:[
+          {
+            path: '',
+            loadChildren: () => import('../make-roll/make-roll.module').then( m => m.MakeRollPageModule)
+          },
+          {
+            path: 'roll-result',
+            loadChildren: () => import('../roll-result/roll-result.module').then( m => m.RollResultPageModule)
+          }
+        ]
       },
       {
-        path: 'tab2',
-        loadChildren: () => import('../tab2/tab2.module').then(m => m.Tab2PageModule)
-      },
-      {
-        path: 'tab3',
-        loadChildren: () => import('../tab3/tab3.module').then(m => m.Tab3PageModule)
+        path: 'rolls-history',
+        children:[
+          {
+            path: '',
+            loadChildren: () => import('../rolls-history/rolls-history.module').then( m => m.RollsHistoryPageModule)
+          },
+          {
+            path: 'roll-result',
+            loadChildren: () => import('../roll-result/roll-result.module').then( m => m.RollResultPageModule)
+          }
+        ]
       },
       {
         path: '',
-        redirectTo: '/tabs/tab1',
+        redirectTo: '/tabs/make-roll',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/tabs/tab1',
+    redirectTo: '/tabs/make-roll',
     pathMatch: 'full'
   }
 ];
