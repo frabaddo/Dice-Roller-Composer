@@ -52,7 +52,7 @@ export class MakeRollPage implements OnInit {
           text: 'Dadi',
           icon: 'cube-outline',
           handler: () => {
-            this.roll.insertStep(this.roll.length,new RollStep(StepType.Dices,"1d6"));
+            this.selectDices(i);
           }
         }
       ])
@@ -75,6 +75,36 @@ export class MakeRollPage implements OnInit {
           text: 'Inserisci',
           handler: (value) => {
             if(value.number)this.roll.insertStep(i,new RollStep(StepType.Number,value.number));
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async selectDices(i) {
+    const alert = await this.alertController.create({
+      header: 'Inserisci dadi',
+      inputs: [
+        {
+          name: 'quantity',
+          type: 'number',
+          placeholder: '0',
+          label:'quantità'
+        },
+        {
+          name: 'faces',
+          type: 'number',
+          placeholder: '0',
+          label:'faccie'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Inserisci',
+          handler: (value) => {
+            if(value.quantity&&value.faces)this.roll.insertStep(i,new RollStep(StepType.Dices,value.quantity+"d"+value.faces));
           }
         }
       ]
