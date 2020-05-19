@@ -5,24 +5,58 @@
 </ion-header>
 
 <ion-content>
-  <ng-container *ngFor="let step of roll.Steps;let i=index;">
-    <ion-item>
-      <ion-label>
-        {{step.Value}}<!-- {{step.Result}} -->
-      </ion-label>
-      <ion-button slot="end" (click)="roll.removeStep(i)">
-        <ion-icon name="remove-outline" slot="icon-only"></ion-icon>
+  <ng-container *ngIf="roll.length>0; else starttemp">
+    <p class="ion-text-center block">
+      <ion-button size="small" (click)="InsertStep(0)">
+        <ion-icon name="add-outline" slot="icon-only"></ion-icon>
       </ion-button>
-    </ion-item>
+    </p>
+    <ng-container *ngFor="let step of roll.Steps;let i=index;">
+      <p class="ion-text-center block">
+        <ion-chip>
+          <ion-label>
+            {{step.Value | replace : 'dF' : ' Fudge ' | replace : 'kh[0-9]+' : ' M ' | replace : '!' : ' ! ' }}<!-- {{step.Result}} -->
+          </ion-label>
+          <ion-button size="small" (click)="roll.removeStep(i)" fill="clear">
+            <ion-icon name="close-outline" slot="icon-only"></ion-icon>
+          </ion-button>
+        </ion-chip>
+      </p>
+      <p class="ion-text-center block">
+        <ion-button size="small" (click)="InsertStep(i+1)">
+          <ion-icon name="add-outline" slot="icon-only"></ion-icon>
+        </ion-button>
+      </p>
+    </ng-container>
   </ng-container>
 
-  <p *ngIf="roll.isValid">
-    Risultato: {{roll.Result}}
-  </p>
-
-  <ion-button (click)="InsertStep()">Inserisci</ion-button>
-
-  <ion-button (click)="roll.reRoll()">Reroll</ion-button>
-
-  <ion-button (click)="roll.clean()">Ricomincia</ion-button>
+  <ng-template #starttemp>
+    <ion-grid style="height: 100%; width: 100%;">
+      <ion-row style="height: 100%; width: 100%;" class="ion-justify-content-center ion-align-items-center">
+        <ion-col>
+          <ion-card class="ion-text-center">
+            <ion-card-content>
+              <h2>Inizia Subito</h2>
+              <p>
+                crea un tiro di dadi!
+              </p>
+              <ion-button (click)="InsertStep(0)">
+                Comincia
+              </ion-button>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ng-template>
 </ion-content>
+<ion-footer *ngIf="roll.isValid">
+  <ion-toolbar>
+    <ion-title mode="ios">
+      Risultato: {{roll.Result}}
+    </ion-title>
+    <ion-button slot="end" fill="clear" (click)="roll.reRoll()">
+      <ion-icon name="refresh-outline" slot="icon-only"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

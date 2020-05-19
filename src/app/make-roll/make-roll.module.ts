@@ -7,6 +7,8 @@ import { IonicModule } from '@ionic/angular';
 import { MakeRollPageRoutingModule } from './make-roll-routing.module';
 
 import { MakeRollPage } from './make-roll.page';
+import { PipesModule } from '../Pipes/pipes.module';
+import { ComponentsModule } from '../Components/components.module';
 
 @NgModule({
   imports: [
@@ -14,6 +16,8 @@ import { MakeRollPage } from './make-roll.page';
     FormsModule,
     IonicModule,
     MakeRollPageRoutingModule,
+    PipesModule,
+    ComponentsModule
   ],
   declarations: [MakeRollPage]
 })

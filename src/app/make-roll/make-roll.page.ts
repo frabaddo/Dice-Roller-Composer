@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Roll } from '../Class/roll-class/roll';
-import { ActionSheetController, AlertController } from '@ionic/angular';
+import { ActionSheetController, AlertController, PopoverController } from '@ionic/angular';
 import { StepType } from '../Class/roll-step-class/step-type.enum';
 import { RollStep } from '../Class/roll-step-class/roll-step';
+import { SelectDicesComponent } from '../Components/select-dices/select-dices.component';
+import { first } from 'rxjs/operators'
 
 @Component({
   selector: 'app-make-roll',
@@ -15,7 +17,8 @@ export class MakeRollPage implements OnInit {
 
   constructor(
     private actionSheetController:ActionSheetController,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private popoverController:PopoverController
   ) { 
     this.roll=new Roll();
   }
@@ -28,7 +31,7 @@ export class MakeRollPage implements OnInit {
       header: 'Inserisci passo',
       buttons: []
     });
-    if(i!=0){
+    //if(i!=0){
       actionSheet.buttons=actionSheet.buttons.concat([
         {
           text: 'Segno',
@@ -38,8 +41,8 @@ export class MakeRollPage implements OnInit {
           }
         }
       ]);
-    }
-    if(i==0||this.roll.Steps[i-1].Type==StepType.Sign){
+   // }
+    //if(i==0||this.roll.Steps[i-1].Type==StepType.Sign){
       actionSheet.buttons=actionSheet.buttons.concat([
         {
           text: 'Numero',
@@ -56,7 +59,7 @@ export class MakeRollPage implements OnInit {
           }
         }
       ])
-    }
+    //}
     await actionSheet.present();
   }
 
@@ -84,33 +87,13 @@ export class MakeRollPage implements OnInit {
   }
 
   async selectDices(i) {
-    const alert = await this.alertController.create({
-      header: 'Inserisci dadi',
-      inputs: [
-        {
-          name: 'quantity',
-          type: 'number',
-          placeholder: '0',
-          label:'quantità'
-        },
-        {
-          name: 'faces',
-          type: 'number',
-          placeholder: '0',
-          label:'faccie'
-        }
-      ],
-      buttons: [
-        {
-          text: 'Inserisci',
-          handler: (value) => {
-            if(value.quantity&&value.faces)this.roll.insertStep(i,new RollStep(StepType.Dices,value.quantity+"d"+value.faces));
-          }
-        }
-      ]
+    const popo = await this.popoverController.create({
+      component:SelectDicesComponent
     });
-
-    await alert.present();
+    popo.onWillDismiss().then((res)=>{
+      if(res.data&&res.data.length>0)this.roll.insertStep(i,new RollStep(StepType.Dices,res.data));
+    });
+    popo.present();
   }
 
   async selectSign(i) {

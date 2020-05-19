@@ -1,0 +1,108 @@
+<ion-grid class="ion-no-padding ion-padding-top">
+  <ion-row class="ion-align-items-center">
+    <ion-col size="4" class="ion-text-center">
+      <p class="ion-no-margin dicetext">
+        {{d.d4}}
+      </p>
+      <ion-fab-button mode="ios" class="dice"  expand="full" color="background" (click)="d.d4=d.d4+1">
+        <ion-icon  style="margin: 5px;" color="primary" src="assets/icon/d4.svg"></ion-icon>
+      </ion-fab-button>
+    </ion-col>
+    <ion-col size="4" class="ion-text-center">
+      <p class="ion-no-margin dicetext">
+        {{d.d6}}
+      </p>
+      <ion-fab-button mode="ios" class="dice"  expand="full" color="background" (click)="d.d6=d.d6+1">
+        <ion-icon  style="margin: 8px;" color="primary" src="assets/icon/d6.svg"></ion-icon>
+      </ion-fab-button>
+    </ion-col>
+    <ion-col size="4" class="ion-text-center">
+      <p class="ion-no-margin dicetext">
+        {{d.d8}}
+      </p>
+      <ion-fab-button mode="ios" class="dice"  expand="full" color="background" (click)="d.d8=d.d8+1">
+        <ion-icon  color="primary" src="assets/icon/d8.svg"></ion-icon>
+      </ion-fab-button>
+    </ion-col>
+    <ion-col size="4" class="ion-text-center">
+      <p class="ion-no-margin dicetext">
+        {{d.d10}}
+      </p>
+      <ion-fab-button mode="ios" class="dice"  expand="full" color="background" (click)="d.d10=d.d10+1">
+        <ion-icon  color="primary" src="assets/icon/d10.svg"></ion-icon>
+      </ion-fab-button>
+    </ion-col>
+    <ion-col size="4" class="ion-text-center">
+      <p class="ion-no-margin dicetext">
+        {{d.d12}}
+      </p>
+      <ion-fab-button mode="ios" class="dice"  expand="full" color="background" (click)="d.d12=d.d12+1">
+        <ion-icon  color="primary" src="assets/icon/d12.svg"></ion-icon>
+      </ion-fab-button>
+    </ion-col>
+    <ion-col size="4" class="ion-text-center">
+      <p class="ion-no-margin dicetext">
+        {{d.d20}}
+      </p>
+      <ion-fab-button mode="ios" class="dice"  expand="full" color="background" (click)="d.d20=d.d20+1">
+        <ion-icon  color="primary" src="assets/icon/d20.svg"></ion-icon>
+      </ion-fab-button>
+    </ion-col>
+    <ion-col size="4" class="ion-text-center">
+      <p class="ion-no-margin dicetext">
+        {{d.d100}}
+      </p>
+      <ion-fab-button mode="ios" class="dice"  expand="full" color="background" (click)="d.d100=d.d100+1">
+        <ion-icon  style="margin: 0px;" color="primary" src="assets/icon/d100.svg"></ion-icon>
+      </ion-fab-button>
+    </ion-col>
+    <ion-col size="4" class="ion-text-center">
+      <p class="ion-no-margin dicetext">
+        {{d.dF}}
+      </p>
+      <ion-fab-button mode="ios" class="dice"  expand="full" color="background" (click)="d.dF=d.dF+1">
+        <ion-icon  style="margin: 8px;" color="primary" src="assets/icon/d6.svg"></ion-icon>
+      </ion-fab-button>
+    </ion-col>
+    <ion-col size="4" class="ion-text-center">
+        <p class="ion-no-margin">
+          Azzera
+        </p>
+      <ion-fab-button mode="ios" class="dice action"  expand="full" color="primary" (click)="reset()">
+        <ion-icon  color="background" src="assets/icon/Azzera.svg"></ion-icon>
+      </ion-fab-button>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item lines="inset" class="ion-margin-top" style="--background: transparent;">
+        <ion-label>
+          Migliori
+        </ion-label>
+        <ion-input class="ion-text-end" slot="end" placeholder="tutti" [(ngModel)]="best"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item lines="none" class="ion-margin-bottom" style="--background: transparent;">
+        <ion-label>
+          Esplodi
+        </ion-label>
+        <ion-checkbox slot="end" [(ngModel)]="explode"></ion-checkbox>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row class="ion-align-items-center">
+    <ion-col class="ion-no-padding" size="6">
+      <ion-button mode="ios" class="ion-no-margin" expand="full" color="background" (click)="dismissSelection()">
+        Annulla
+      </ion-button>
+    </ion-col>
+    <ion-col class="ion-no-padding" size="6">
+      <ion-button mode="ios" class="ion-no-margin" expand="full" color="secondary" (click)="confirmSelection()">
+        Conferma
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-grid>
