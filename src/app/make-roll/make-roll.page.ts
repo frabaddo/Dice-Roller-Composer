@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Roll } from '../roll-class/roll';
+import { Roll } from '../Class/roll-class/roll';
 import { ActionSheetController, AlertController } from '@ionic/angular';
-import { StepType } from '../roll-step-class/step-type.enum';
-import { RollStep } from '../roll-step-class/roll-step';
+import { StepType } from '../Class/roll-step-class/step-type.enum';
+import { RollStep } from '../Class/roll-step-class/roll-step';
 
 @Component({
   selector: 'app-make-roll',
