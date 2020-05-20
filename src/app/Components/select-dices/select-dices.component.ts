@@ -75,7 +75,6 @@ export class SelectDicesComponent implements OnInit {
         if(this.best)res=res+"kh"+this.best;
       }  
     });
-    console.log(this.explode,this.best,res);
     this.confirm.emit(res);
     this.popover.dismiss(res);
   }

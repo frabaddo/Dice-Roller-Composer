@@ -15,7 +15,7 @@ export class RollStep {
     }
 
     get Result(){
-        return this._type==StepType.Number||this._type==StepType.Sign ? this._value : this._result&&this._result.total||undefined;
+        return this._type==StepType.Number||this._type==StepType.Sign ? this._value : this._result&&(this._result.total!=undefined&&!isNaN(this._result.total))?this._result.total:undefined;
     }
 
     get Value(){

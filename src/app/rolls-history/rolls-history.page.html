@@ -1,15 +1,25 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>rolls-history</ion-title>
+    <ion-title>Cronologia</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-list>
-    <ion-item [routerLink]="['./roll-result']">
+    <ion-item *ngFor="let log of Logs;">
       <ion-label>
-        tiro 1
+        <p>
+          <ion-note>
+            {{log.Data | date : 'HH:mm dd/LL'}}
+          </ion-note>
+        </p>
+        <h2>
+          {{log.Value}}
+        </h2>
       </ion-label>
+      <h1 slot="end">
+        {{log.Result}}
+      </h1>
     </ion-item>
   </ion-list>
 </ion-content>

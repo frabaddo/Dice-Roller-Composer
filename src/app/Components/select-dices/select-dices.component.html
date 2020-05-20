@@ -61,7 +61,7 @@
         {{d.dF}}
       </p>
       <ion-fab-button mode="ios" class="dice"  expand="full" color="background" (click)="d.dF=d.dF+1">
-        <ion-icon  style="margin: 8px;" color="primary" src="assets/icon/d6.svg"></ion-icon>
+        <ion-icon  style="margin: 8px;" color="primary" src="assets/icon/dF.svg"></ion-icon>
       </ion-fab-button>
     </ion-col>
     <ion-col size="4" class="ion-text-center">
@@ -69,7 +69,7 @@
           Azzera
         </p>
       <ion-fab-button mode="ios" class="dice action"  expand="full" color="primary" (click)="reset()">
-        <ion-icon  color="background" src="assets/icon/Azzera.svg"></ion-icon>
+        <ion-icon src="assets/icon/Azzera.svg"></ion-icon>
       </ion-fab-button>
     </ion-col>
   </ion-row>
@@ -95,12 +95,12 @@
   </ion-row>
   <ion-row class="ion-align-items-center">
     <ion-col class="ion-no-padding" size="6">
-      <ion-button mode="ios" class="ion-no-margin" expand="full" color="background" (click)="dismissSelection()">
+      <ion-button mode="ios" class="ion-no-margin" expand="full" color="primary" fill="clear" (click)="dismissSelection()">
         Annulla
       </ion-button>
     </ion-col>
     <ion-col class="ion-no-padding" size="6">
-      <ion-button mode="ios" class="ion-no-margin" expand="full" color="secondary" (click)="confirmSelection()">
+      <ion-button mode="ios" class="ion-no-margin" expand="full" color="primary" (click)="confirmSelection()">
         Conferma
       </ion-button>
     </ion-col>

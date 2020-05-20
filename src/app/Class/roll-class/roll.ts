@@ -1,7 +1,7 @@
 import { RollStep } from '../roll-step-class/roll-step';
 
 export class Roll {
-    private rollSteps:Array<RollStep>=[];
+    rollSteps:Array<RollStep>=[];
 
     get Steps(){
         return this.rollSteps;
@@ -57,5 +57,24 @@ export class Roll {
 
     clean(){
         this.rollSteps=[];
+    }
+
+    getLog(){
+        let value = this.rollSteps.reduce((tot,current)=>{
+            let val=current.Value;
+            val=this.replace(val , 'dF' , ' Fudge ');
+            val=this.replace(val , 'kh[0-9]+' , ' M ');
+            val=this.replace(val , '!' , ' ! ');
+            return tot+val;
+        },"")
+        return {
+            Result:this.Result,
+            Value:value
+        }
+    }
+
+    replace(value,regexValue,replaceValue){
+        let regex = new RegExp(regexValue, 'g');
+        return value.replace(regex, replaceValue);
     }
 }

@@ -1,6 +1,16 @@
-p.block {
-    /*display: inline-block;
-    margin-left: 8px;
-    margin-bottom: 0px;
-    margin-top: 16px;*/
+.reordeable-label{
+    margin: 0px;
+}
+.block{
+    margin-top: 16px;
+}
+ion-chip{
+    height: fit-content;
+    ion-label.value-label {
+        white-space: break-spaces;
+        word-break: break-all;
+        font-size: 20px !important;
+        font-weight: 600;
+        padding: 7px;
+    }
 }

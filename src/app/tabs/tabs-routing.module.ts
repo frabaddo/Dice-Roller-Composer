@@ -13,10 +13,6 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: () => import('../make-roll/make-roll.module').then( m => m.MakeRollPageModule)
-          },
-          {
-            path: 'roll-result',
-            loadChildren: () => import('../roll-result/roll-result.module').then( m => m.RollResultPageModule)
           }
         ]
       },
@@ -26,6 +22,19 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: () => import('../rolls-history/rolls-history.module').then( m => m.RollsHistoryPageModule)
+          },
+          {
+            path: 'roll-result',
+            loadChildren: () => import('../roll-result/roll-result.module').then( m => m.RollResultPageModule)
+          }
+        ]
+      },
+      {
+        path: 'favorites',
+        children:[
+          {
+            path: '',
+            loadChildren: () => import('../favorites/favorites.module').then( m => m.FavoritesPageModule)
           },
           {
             path: 'roll-result',
