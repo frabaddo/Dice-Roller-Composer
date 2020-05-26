@@ -16,11 +16,6 @@ export class MakeRollPage {
   resultToastPresent=new Subject();
 
   @ViewChild('composer',{ static: false }) rollComposer:RollComposerComponent;
-  /*set content(content: ElementRef) {
-    if(content) { // initially setter gets called with undefined
-        this.contentPlaceholder = content;
-    }
-  }*/
 
   constructor(
     private toastController:ToastController,
@@ -67,6 +62,6 @@ export class MakeRollPage {
   }
 
   saveMacro(){
-    
+
   }
 }
