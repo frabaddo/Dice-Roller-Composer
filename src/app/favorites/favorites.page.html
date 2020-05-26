@@ -5,10 +5,13 @@
 </ion-header>
 
 <ion-content>
-  <ion-item *ngFor="let macro of Macros" (click)="openMacro(macro.id)">
-    <ion-label>
+  <ion-item *ngFor="let macro of Macros">
+    <ion-label (click)="openMacro(macro.id)">
       {{macro.name}}
     </ion-label>
+    <ion-button slot="end" (click)="Roll(macro.roll)">
+      Lancia
+    </ion-button>
   </ion-item>
 
 </ion-content>
