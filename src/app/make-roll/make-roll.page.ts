@@ -1,12 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Roll } from '../Class/roll-class/roll';
-import { ActionSheetController, AlertController, PopoverController, ToastController } from '@ionic/angular';
-import { StepType } from '../Class/roll-step-class/step-type.enum';
-import { RollStep } from '../Class/roll-step-class/roll-step';
-import { SelectDicesComponent } from '../Components/select-dices/select-dices.component';
+import { ToastController } from '@ionic/angular';
 import { first } from 'rxjs/operators'
 import { Subject } from 'rxjs'
 import { Storage } from '@ionic/storage';
+import { RollComposerComponent } from '../Components/roll-composer/roll-composer.component';
 
 @Component({
   selector: 'app-make-roll',
@@ -15,131 +13,25 @@ import { Storage } from '@ionic/storage';
 })
 export class MakeRollPage {
 
-  roll:Roll;
-
   resultToastPresent=new Subject();
 
+  @ViewChild('composer',{ static: false }) rollComposer:RollComposerComponent;
+  /*set content(content: ElementRef) {
+    if(content) { // initially setter gets called with undefined
+        this.contentPlaceholder = content;
+    }
+  }*/
+
   constructor(
-    private actionSheetController:ActionSheetController,
-    private alertController: AlertController,
-    private popoverController:PopoverController,
     private toastController:ToastController,
     private storage:Storage
-  ) { 
-    this.roll=new Roll();
-  }
-
-  async InsertStep(i=this.roll.length) {
-    const actionSheet = await this.actionSheetController.create({
-      header: 'Inserisci passo',
-      buttons: [
-        {
-          text: 'Segno',
-          icon: 'add-outline',
-          handler: () => {
-            this.selectSign(i);
-          }
-        },
-        {
-          text: 'Numero',
-          icon: 'information-outline',
-          handler: () => {
-            this.selectNumber(i);
-          }
-        }, 
-        {
-          text: 'Dadi',
-          icon: 'cube-outline',
-          handler: () => {
-            this.selectDices(i);
-          }
-        }
-      ]
-    });
-    await actionSheet.present();
-  }
-
-  async selectNumber(i) {
-    const alert = await this.alertController.create({
-      header: 'Inserisci numero',
-      inputs: [
-        {
-          name: 'number',
-          type: 'number',
-          placeholder: '0'
-        }
-      ],
-      buttons: [
-        {
-          text: 'Inserisci',
-          handler: (value) => {
-            if(value.number)this.roll.insertStep(i,new RollStep(StepType.Number,value.number));
-          }
-        }
-      ]
-    });
-
-    await alert.present();
-  }
-
-  async selectDices(i) {
-    const popo = await this.popoverController.create({
-      component:SelectDicesComponent
-    });
-    popo.onWillDismiss().then((res)=>{
-      if(res.data&&res.data.length>0)this.roll.insertStep(i,new RollStep(StepType.Dices,res.data));
-    });
-    popo.present();
-  }
-
-  async selectSign(i) {
-    const alert = await this.alertController.create({
-      header: 'Inserisci segno',
-      inputs: [
-        {
-          name: 'radio1',
-          type: 'radio',
-          label: '+',
-          value: '+',
-          checked: true
-        },
-        {
-          name: 'radio2',
-          type: 'radio',
-          label: '-',
-          value: '-'
-        },
-        {
-          name: 'radio3',
-          type: 'radio',
-          label: 'X',
-          value: '*'
-        },
-        {
-          name: 'radio4',
-          type: 'radio',
-          label: '/',
-          value: '/'
-        }
-      ],
-      buttons: [
-        {
-          text: 'Ok',
-          handler: (val) => {
-            if(val)this.roll.insertStep(i,new RollStep(StepType.Sign,val));
-          }
-        }
-      ]
-    });
-
-    await alert.present();
-  }
+  ) {}
 
   async Roll(){
-    this.roll.reRoll();
-    if(this.roll.isValid){
+    this.rollComposer.roll.reRoll();
+    if(this.rollComposer.roll.isValid){
       const toast = await this.toastController.create({
-        header: 'Risultato: '+this.roll.Result,
+        header: 'Risultato: '+this.rollComposer.roll.Result,
         position: 'top',
         buttons: [
           {
@@ -157,7 +49,7 @@ export class MakeRollPage {
       this.resultToastPresent.pipe(first()).subscribe(()=>{
         toast.dismiss();
       });
-      this.storage.set("log"+Date.now(),JSON.stringify(this.roll.getLog())).then(()=>{});
+      this.storage.set("log"+Date.now(),JSON.stringify(this.rollComposer.roll.getLog())).then(()=>{});
       this.storage.keys().then((list)=>{
         list
         .filter((el)=>String(el).startsWith("log"))
@@ -168,13 +60,13 @@ export class MakeRollPage {
         })
       })
       .catch((err)=>{
-        console.log("err",err,this.roll.getLog());
+        console.log("err",err,this.rollComposer.roll.getLog());
       });
       toast.present();
     }
   }
 
-  Reord(ev: any) {
-    this.roll.rollSteps = ev.detail.complete(this.roll.rollSteps);
+  saveMacro(){
+    
   }
 }

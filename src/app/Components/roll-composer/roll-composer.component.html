@@ -1,0 +1,30 @@
+<p class="ion-text-center block" style="margin-bottom: 0px;">
+  <ion-button size="small" (click)="InsertStep(0)">
+    <ion-icon name="add-outline" slot="icon-only"></ion-icon>
+  </ion-button>
+</p>
+<ion-reorder-group (ionItemReorder)="Reord($event)" disabled="false" class="ion-no-padding" style="background: transparent;">
+  <ng-container *ngFor="let step of roll.rollSteps;let i=index;">
+    <ion-item lines="none" style="--background: transparent;">
+      <ion-label class="ion-text-center" class="reordeable-label">
+        <p class="ion-text-center block ion-margin-top">
+          <ion-chip>
+            <ion-reorder class="ion-padding-horizontal">
+            </ion-reorder>
+            <ion-label class="value-label">
+              {{step.Value | replace : 'dF' : ' Fudge ' | replace : 'kh[0-9]+' : ' M ' | replace : '!' : ' ! ' }}<!-- {{step.Result}} -->
+            </ion-label>
+            <ion-button size="small" (click)="roll.removeStep(i)" fill="clear">
+              <ion-icon name="close-outline" slot="icon-only"></ion-icon>
+            </ion-button>
+          </ion-chip>
+        </p>
+        <p class="ion-text-center block ion-margin-top">
+          <ion-button size="small" (click)="InsertStep(i+1)">
+            <ion-icon name="add-outline" slot="icon-only"></ion-icon>
+          </ion-button>
+        </p>
+      </ion-label>
+    </ion-item>
+  </ng-container>
+</ion-reorder-group>

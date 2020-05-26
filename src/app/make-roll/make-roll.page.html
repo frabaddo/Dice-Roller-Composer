@@ -1,36 +1,7 @@
 <ion-content>
-  <p class="ion-text-center block" *ngIf="roll.length>0" style="margin-bottom: 0px;">
-    <ion-button size="small" (click)="InsertStep(0)">
-      <ion-icon name="add-outline" slot="icon-only"></ion-icon>
-    </ion-button>
-  </p>
-  <ion-reorder-group (ionItemReorder)="Reord($event)" disabled="false"  *ngIf="roll.length>0; else starttemp" class="ion-no-padding" style="background: transparent;">
-    <ng-container *ngFor="let step of roll.rollSteps;let i=index;">
-      <ion-item lines="none" style="--background: transparent;">
-        <ion-label class="ion-text-center" class="reordeable-label">
-          <p class="ion-text-center block ion-margin-top">
-            <ion-chip>
-              <ion-reorder class="ion-padding-horizontal">
-              </ion-reorder>
-              <ion-label class="value-label">
-                {{step.Value | replace : 'dF' : ' Fudge ' | replace : 'kh[0-9]+' : ' M ' | replace : '!' : ' ! ' }}<!-- {{step.Result}} -->
-              </ion-label>
-              <ion-button size="small" (click)="roll.removeStep(i)" fill="clear">
-                <ion-icon name="close-outline" slot="icon-only"></ion-icon>
-              </ion-button>
-            </ion-chip>
-          </p>
-          <p class="ion-text-center block ion-margin-top">
-            <ion-button size="small" (click)="InsertStep(i+1)">
-              <ion-icon name="add-outline" slot="icon-only"></ion-icon>
-            </ion-button>
-          </p>
-        </ion-label>
-      </ion-item>
-    </ng-container>
-  </ion-reorder-group>
+  <app-roll-composer #composer [hidden]="rollComposer?.roll?.length==0"></app-roll-composer>
 
-  <ng-template #starttemp>
+  <ng-container *ngIf="!rollComposer||rollComposer?.roll?.length==0">
     <ion-grid style="height: 100%; width: 100%;">
       <ion-row style="height: 100%; width: 100%;" class="ion-justify-content-center ion-align-items-center">
         <ion-col>
@@ -40,7 +11,7 @@
               <p>
                 crea un tiro di dadi!
               </p>
-              <ion-button (click)="InsertStep(0)">
+              <ion-button (click)="rollComposer.InsertStep(0)">
                 Comincia
               </ion-button>
             </ion-card-content>
@@ -48,20 +19,20 @@
         </ion-col>
       </ion-row>
     </ion-grid>
-  </ng-template>
+  </ng-container>
 </ion-content>
-<ion-footer *ngIf="roll.isValid">
+<ion-footer *ngIf="rollComposer&&rollComposer?.roll?.isValid">
   <ion-toolbar class="ion-text-center">
     <!--<ion-title mode="ios">
       Risultato: {{roll.Result}}
     </ion-title>-->
-    <ion-button slot="start" fill="clear" (click)="roll.reRoll()">
+    <ion-button slot="start" fill="clear" (click)="saveMacro()">
       <ion-icon name="bookmark" slot="icon-only"></ion-icon>
     </ion-button>
     <ion-button (click)="Roll()">
       LANCIA!
     </ion-button>
-    <ion-button slot="end" fill="clear" (click)="roll.clean()">
+    <ion-button slot="end" fill="clear" (click)="rollComposer?.roll.clean()">
       <ion-icon name="trash" slot="icon-only"></ion-icon>
     </ion-button>
   </ion-toolbar>
