@@ -77,4 +77,13 @@ export class Roll {
         let regex = new RegExp(regexValue, 'g');
         return value.replace(regex, replaceValue);
     }
+
+    minified(){
+        return this.rollSteps.map((step)=>{
+            return {
+                Value:step.Value,
+                Type:step.Type
+            }
+        })
+    }
 }

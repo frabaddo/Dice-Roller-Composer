@@ -5,6 +5,7 @@ import { first } from 'rxjs/operators'
 import { Subject } from 'rxjs'
 import { Storage } from '@ionic/storage';
 import { RollComposerComponent } from '../Components/roll-composer/roll-composer.component';
+import { Macro } from '../Class/macro-class/macro';
 
 @Component({
   selector: 'app-make-roll',
@@ -28,6 +29,7 @@ export class MakeRollPage {
       const toast = await this.toastController.create({
         header: 'Risultato: '+this.rollComposer.roll.Result,
         position: 'top',
+        duration: 3000,
         buttons: [
           {
             text: '',
@@ -62,6 +64,12 @@ export class MakeRollPage {
   }
 
   saveMacro(){
-
+    let id="macro"+Date.now();
+    let macro=new Macro({
+      name:"test"+Date.now(),
+      roll:this.rollComposer.roll,
+      id:id
+    })
+    this.storage.set(id,macro.stringify());
   }
 }

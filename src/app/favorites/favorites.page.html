@@ -5,5 +5,10 @@
 </ion-header>
 
 <ion-content>
+  <ion-item *ngFor="let macro of Macros" (click)="openMacro(macro.id)">
+    <ion-label>
+      {{macro.name}}
+    </ion-label>
+  </ion-item>
 
 </ion-content>
