@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { RollResultPage } from './roll-result.page';
+import { ModifyFavoritePage } from './modify-favorite.page';
 
-describe('RollResultPage', () => {
-  let component: RollResultPage;
-  let fixture: ComponentFixture<RollResultPage>;
+describe('ModifyFavoritePage', () => {
+  let component: ModifyFavoritePage;
+  let fixture: ComponentFixture<ModifyFavoritePage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RollResultPage ],
+      declarations: [ ModifyFavoritePage ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(RollResultPage);
+    fixture = TestBed.createComponent(ModifyFavoritePage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

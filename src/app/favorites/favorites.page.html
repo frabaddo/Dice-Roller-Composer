@@ -6,7 +6,7 @@
 
 <ion-content>
   <ion-item *ngFor="let macro of Macros">
-    <ion-label (click)="openMacro(macro.id)">
+    <ion-label [routerLink]="['modify-favorite/'+macro.id]">
       {{macro.name}}
     </ion-label>
     <ion-button slot="end" (click)="Roll(macro.roll)">

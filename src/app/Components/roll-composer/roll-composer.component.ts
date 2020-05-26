@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { Roll } from '../../Class/roll-class/roll';
 import { ActionSheetController, AlertController, PopoverController } from '@ionic/angular';
 import { StepType } from '../../Class/roll-step-class/step-type.enum';
@@ -12,6 +12,9 @@ import { Subject } from 'rxjs'
   styleUrls: ['./roll-composer.component.scss'],
 })
 export class RollComposerComponent {
+
+  @Output()
+  change: EventEmitter<any> = new EventEmitter<any>();
 
   roll:Roll=new Roll();
 
@@ -68,7 +71,10 @@ export class RollComposerComponent {
         {
           text: 'Inserisci',
           handler: (value) => {
-            if(value.number)this.roll.insertStep(i,new RollStep(StepType.Number,value.number));
+            if(value.number){
+              this.roll.insertStep(i,new RollStep(StepType.Number,value.number));
+              this.change.emit();
+            }
           }
         }
       ]
@@ -82,7 +88,10 @@ export class RollComposerComponent {
       component:SelectDicesComponent
     });
     popo.onWillDismiss().then((res)=>{
-      if(res.data&&res.data.length>0)this.roll.insertStep(i,new RollStep(StepType.Dices,res.data));
+      if(res.data&&res.data.length>0){
+        this.roll.insertStep(i,new RollStep(StepType.Dices,res.data));
+        this.change.emit();
+      }
     });
     popo.present();
   }
@@ -121,7 +130,10 @@ export class RollComposerComponent {
         {
           text: 'Ok',
           handler: (val) => {
-            if(val)this.roll.insertStep(i,new RollStep(StepType.Sign,val));
+            if(val){
+              this.roll.insertStep(i,new RollStep(StepType.Sign,val));
+              this.change.emit();
+            }
           }
         }
       ]
@@ -130,8 +142,14 @@ export class RollComposerComponent {
     await alert.present();
   }
 
+  removeStep(i){
+    this.roll.removeStep(i);
+    this.change.emit();
+  }
+
   Reord(ev: any) {
     this.roll.rollSteps = ev.detail.complete(this.roll.rollSteps);
+    this.change.emit();
   }
 
 }

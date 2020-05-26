@@ -14,7 +14,7 @@
             <ion-label class="value-label">
               {{step.Value | replace : 'dF' : ' Fudge ' | replace : 'kh[0-9]+' : ' M ' | replace : '!' : ' ! ' }}<!-- {{step.Result}} -->
             </ion-label>
-            <ion-button size="small" (click)="roll.removeStep(i)" fill="clear">
+            <ion-button size="small" (click)="removeStep(i)" fill="clear">
               <ion-icon name="close-outline" slot="icon-only"></ion-icon>
             </ion-button>
           </ion-chip>

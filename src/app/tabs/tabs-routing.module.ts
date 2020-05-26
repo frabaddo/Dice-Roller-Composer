@@ -22,10 +22,6 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: () => import('../rolls-history/rolls-history.module').then( m => m.RollsHistoryPageModule)
-          },
-          {
-            path: 'roll-result',
-            loadChildren: () => import('../roll-result/roll-result.module').then( m => m.RollResultPageModule)
           }
         ]
       },
@@ -37,8 +33,8 @@ const routes: Routes = [
             loadChildren: () => import('../favorites/favorites.module').then( m => m.FavoritesPageModule)
           },
           {
-            path: 'roll-result',
-            loadChildren: () => import('../roll-result/roll-result.module').then( m => m.RollResultPageModule)
+            path: 'modify-favorite/:id',
+            loadChildren: () => import('../modify-favorite/modify-favorite.module').then( m => m.ModifyFavoritePageModule)
           }
         ]
       },
