@@ -1,4 +1,5 @@
 import { RollStep } from '../roll-step-class/roll-step';
+import { StepType } from '../roll-step-class/step-type.enum';
 
 export class Roll {
     rollSteps:Array<RollStep>=[];
@@ -65,7 +66,8 @@ export class Roll {
             val=this.replace(val , 'dF' , ' Fudge ');
             val=this.replace(val , 'kh[0-9]+' , ' M ');
             val=this.replace(val , '!' , ' ! ');
-            return tot+val;
+            if(current.Type==StepType.Dices) return tot+val+" ("+current.Result+")";
+            else return tot+val;
         },"")
         return {
             Result:this.Result,
