@@ -1,6 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Roll } from '../Class/roll-class/roll';
-import { ToastController } from '@ionic/angular';
+import { ToastController, AlertController } from '@ionic/angular';
 import { first } from 'rxjs/operators'
 import { Subject } from 'rxjs'
 import { Storage } from '@ionic/storage';
@@ -20,7 +19,8 @@ export class MakeRollPage {
 
   constructor(
     private toastController:ToastController,
-    private storage:Storage
+    private storage:Storage,
+    private alertController:AlertController
   ) {}
 
   async Roll(){
@@ -63,13 +63,34 @@ export class MakeRollPage {
     }
   }
 
-  saveMacro(){
-    let id="macro"+Date.now();
-    let macro=new Macro({
-      name:"test"+Date.now(),
-      roll:this.rollComposer.roll,
-      id:id
-    })
-    this.storage.set(id,macro.stringify());
+  async saveMacro(){
+    const alert = await this.alertController.create({
+      header: 'Inserisci nome Preferito',
+      inputs: [
+        {
+          name: 'name',
+          type: 'text',
+          placeholder: 'Inserisci qui'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Salva',
+          handler: (value) => {
+            if(value.name){
+              let id="macro"+Date.now();
+              let macro=new Macro({
+                name:value.name,
+                roll:this.rollComposer.roll,
+                id:id
+              })
+              this.storage.set(id,macro.stringify());
+            }
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 }
