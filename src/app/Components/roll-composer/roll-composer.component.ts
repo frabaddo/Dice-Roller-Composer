@@ -51,6 +51,13 @@ export class RollComposerComponent {
           handler: () => {
             this.selectDices(i);
           }
+        },
+        {
+          text: 'Solo per nerd',
+          icon: 'glasses',
+          handler: () => {
+            this.selectSmanettone(i);
+          }
         }
       ]
     });
@@ -125,6 +132,93 @@ export class RollComposerComponent {
           label: '/',
           value: '/'
         }
+      ],
+      buttons: [
+        {
+          text: 'Ok',
+          handler: (val) => {
+            if(val){
+              this.roll.insertStep(i,new RollStep(StepType.Sign,val));
+              this.change.emit();
+            }
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async selectSmanettone(i) {
+    const alert = await this.alertController.create({
+      header: 'Solo per nerd',
+      inputs: [
+        {
+          name: 'radio1',
+          type: 'radio',
+          label: 'not',
+          value: '!'
+        },
+        {
+          name: 'radio2',
+          type: 'radio',
+          label: 'resto',
+          value: '%',
+        },
+        {
+          name: 'radio3',
+          type: 'radio',
+          label: '==',
+          value: '=='
+        },
+        {
+          name: 'radio4',
+          type: 'radio',
+          label: '(',
+          value: '('
+        },
+        {
+          name: 'radio5',
+          type: 'radio',
+          label: ')',
+          value: ')'
+        },
+        {
+          name: 'radio6',
+          type: 'radio',
+          label: '?',
+          value: '?'
+        },
+        {
+          name: 'radio7',
+          type: 'radio',
+          label: ':',
+          value: ':'
+        },
+        {
+          name: 'radio8',
+          type: 'radio',
+          label: '>',
+          value: '>'
+        },
+        {
+          name: 'radio9',
+          type: 'radio',
+          label: '<',
+          value: '<'
+        },
+        {
+          name: 'radio10',
+          type: 'radio',
+          label: '>=',
+          value: '>='
+        },
+        {
+          name: 'radio11',
+          type: 'radio',
+          label: '<=',
+          value: '<='
+        },
       ],
       buttons: [
         {
